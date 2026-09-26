@@ -1,0 +1,18 @@
+{
+  "name": "kawachar-v2",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "KawachAR — Industrial AR Safety & Admin Registration Portal",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}

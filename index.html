@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KawachAR — Industrial AR Safety & Worker Platform</title>
+  <meta name="description" content="KawachAR: Industrial Augmented Reality safety, hazard telemetry, worker onboarding, and DGMS compliance platform for mining, steel, and mica facilities.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Ol+Chiki:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased">
+  
+  <!-- ========================================================================= -->
+  <!-- TOP NAVIGATION BAR (PERSISTENT WITH DYNAMIC ACTIONS & LANGUAGE SWITCHER)   -->
+  <!-- ========================================================================= -->
+  <header class="navbar" id="main-header">
+    <div class="nav-container">
+      <div class="brand-group">
+        <a href="javascript:void(0)" class="brand-logo" id="navBrandLink" title="Return to Welcome Screen">
+          <div class="logo-shield">
+            <i data-lucide="shield-alert" class="logo-icon"></i>
+            <span class="ar-dot"></span>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">Kawach<span class="brand-accent">AR</span></div>
+            <span class="brand-tagline" data-i18n="brand_tagline">Industrial Safety & AR Telemetry Shield</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Central Indicator -->
+      <div class="nav-status-center">
+        <span class="nav-current-view-badge" id="navViewBadge">
+          <span class="pulse-dot"></span>
+          <span id="navViewBadgeText" data-i18n="nav_landing_view">Welcome Portal</span>
+        </span>
+      </div>
+
+      <!-- Top-Right Actions: Language Switcher & Quick Navigation -->
+      <div class="nav-actions">
+        <!-- Global Header Language Switcher (Sole Language Control across App) -->
+        <div class="lang-selector-dropdown-wrap">
+          <i data-lucide="languages" class="lang-icon"></i>
+          <select id="globalLangSelector" class="lang-select" aria-label="Select Application Language">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="sat">ᱥᱟᱱᱛᱟᱲᱤ (Santali)</option>
+          </select>
+          <i data-lucide="chevron-down" class="lang-arrow"></i>
+        </div>
+
+        <!-- Dynamic Navigation Buttons -->
+        <button id="navLandingBtn" class="btn btn-subtle hidden" title="Go to Welcome Screen">
+          <i data-lucide="home"></i>
+          <span data-i18n="nav_home">Home</span>
+        </button>
+
+        <button id="navAdminPortalBtn" class="btn btn-admin-portal" title="Open Admin Registration Portal">
+          <div class="btn-icon-box">
+            <i data-lucide="shield-plus" class="portal-btn-icon"></i>
+          </div>
+          <div class="btn-content">
+            <span class="btn-title" data-i18n="nav_admin_portal">Admin Portal</span>
+            <span class="btn-subtitle" data-i18n="nav_admin_sub">Facility & Workers</span>
+          </div>
+        </button>
+
+        <!-- Fixed Worker Login Button with Suitable Icon (Req 5) -->
+        <button id="navWorkerAppBtn" class="btn btn-worker-app" title="Launch Worker Mobile App">
+          <div class="btn-icon-box-worker">
+            <i data-lucide="hard-hat" class="portal-btn-icon"></i>
+          </div>
+          <div class="btn-content">
+            <span class="btn-title" data-i18n="nav_worker_app">Worker Login</span>
+            <span class="btn-subtitle" data-i18n="nav_worker_sub">Android AR Client</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- VIEW 1: LANDING & WELCOME SCREEN (FITS IN ONE SCREEN - NO SCROLL)          -->
+  <!-- ========================================================================= -->
+  <section class="landing-workspace" id="viewLanding">
+    <div class="landing-container">
+      
+      <!-- Top Hero Welcome Badge -->
+      <div class="landing-hero-badge">
+        <i data-lucide="shield-check" class="w-4 h-4 text-amber-600"></i>
+        <span data-i18n="landing_badge">Next-Generation Industrial Workforce Safety Platform</span>
+      </div>
+
+      <!-- Hero Main Heading (Req 3: Simple & Broad) & Short Description -->
+      <div class="landing-hero-content text-center">
+        <h1 class="landing-main-title">
+          <span class="text-gradient" data-i18n="landing_title_main">AR-Powered Safety Training for Industrial Workers</span>
+        </h1>
+
+        <!-- 2-Sentence Mission Summary -->
+        <p class="landing-mission-text" data-i18n="landing_mission_desc">
+          KawachAR replaces passive classroom lectures with real-time smartphone AR hazard simulations, removing costly VR headset barriers and providing verifiable digital safety certification for mining, steel, and mica workers across Jharkhand.
+        </p>
+      </div>
+
+      <!-- 2-Column Compact Grid: Admin Card | Worker Card -->
+      <div class="landing-portals-grid-2">
+        
+        <!-- Portal 1: Admin Portal Card -->
+        <div class="portal-entry-card portal-admin-card" id="portalCardAdmin">
+          <div class="portal-card-body">
+            <div class="portal-icon-box admin-icon-box">
+              <i data-lucide="shield-plus"></i>
+            </div>
+            <h2 class="portal-card-title" data-i18n="portal_admin_title">Admin Portal</h2>
+            <p class="portal-card-desc" data-i18n="portal_admin_desc">
+              Register industrial facilities, manage active department scopes, enroll frontline workers, generate EMP IDs, and monitor DGMS compliance audit logs.
+            </p>
+            
+            <ul class="portal-feature-list">
+              <li><i data-lucide="check" class="text-amber-600"></i> <span data-i18n="portal_admin_feat_1">Industry & MSME Udyam Registration</span></li>
+              <li><i data-lucide="check" class="text-amber-600"></i> <span data-i18n="portal_admin_feat_2">Admin Worker Enrollment & EMP IDs</span></li>
+              <li><i data-lucide="check" class="text-amber-600"></i> <span data-i18n="portal_admin_feat_3">Operational Scope & Department Routing</span></li>
+            </ul>
+          </div>
+
+          <div class="portal-card-footer">
+            <button type="button" class="btn btn-primary btn-lg w-full" id="btnEnterAdminPortal">
+              <span data-i18n="btn_enter_admin">Enter Admin Portal</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Portal 2: Worker Login Card -->
+        <div class="portal-entry-card portal-worker-card" id="portalCardWorker">
+          <div class="portal-card-body">
+            <div class="portal-icon-box worker-icon-box">
+              <i data-lucide="hard-hat"></i>
+            </div>
+            <h2 class="portal-card-title" data-i18n="portal_worker_title">Worker Login</h2>
+            <p class="portal-card-desc" data-i18n="portal_worker_desc">
+              Frontline worker authentication inside simulated Android mobile client. Select your organization, activate your pass with first-time password set, and enter AR training modules.
+            </p>
+
+            <ul class="portal-feature-list">
+              <li><i data-lucide="check" class="text-blue-600"></i> <span data-i18n="portal_worker_feat_1">Realistic Mobile Device Mockup Frame</span></li>
+              <li><i data-lucide="check" class="text-blue-600"></i> <span data-i18n="portal_worker_feat_2">First-Time Setup & Persistent Login Session</span></li>
+              <li><i data-lucide="check" class="text-blue-600"></i> <span data-i18n="portal_worker_feat_3">1-Click Demo Worker Quick Access</span></li>
+            </ul>
+          </div>
+
+          <div class="portal-card-footer">
+            <button type="button" class="btn btn-worker-primary btn-lg w-full" id="btnEnterWorkerApp">
+              <span data-i18n="btn_enter_worker">Open Worker Mobile App</span>
+              <i data-lucide="arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- VIEW 2: ADMIN PORTAL & REGISTRY (DESKTOP DASHBOARD LAYOUT)                -->
+  <!-- ========================================================================= -->
+  <main class="main-layout hidden" id="viewAdminPortal">
+    
+    <!-- Hero Banner (Req 8: Only 2 action buttons) -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i data-lucide="shield-check" class="hero-badge-icon"></i>
+          <span data-i18n="admin_hero_badge">Enterprise Workforce Management • DGMS Compliance Network</span>
+        </div>
+        <h1 class="hero-title">
+          <span data-i18n="admin_hero_title_p1">Industrial Facility &</span> <span class="text-gradient" data-i18n="admin_hero_title_p2">Workforce Management</span>
+        </h1>
+        <p class="hero-desc" data-i18n="admin_hero_desc">
+          Register industrial mining, steel, and mica facilities, configure active operational departments, enroll workers, and distribute automated EMP credentials for mobile AR training.
+        </p>
+
+        <!-- Req 8: Only two buttons shown on Admin Portal home -->
+        <div class="hero-cta-group">
+          <button id="heroRegisterBtn" class="btn btn-primary btn-lg">
+            <i data-lucide="building-2"></i>
+            <span data-i18n="btn_register_site">Register Industrial Facility</span>
+            <i data-lucide="plus"></i>
+          </button>
+          <button type="button" id="heroAddWorkerBtn" class="btn btn-amber btn-lg">
+            <i data-lucide="user-plus"></i>
+            <span data-i18n="btn_enroll_worker">Add New Worker</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hero Visual Stats Cards -->
+      <div class="hero-stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon-wrap navy">
+            <i data-lucide="building"></i>
+          </div>
+          <div class="stat-meta">
+            <div class="stat-value" id="statTotalUnits">0</div>
+            <div class="stat-label" data-i18n="stat_registered_orgs">Registered Facilities</div>
+          </div>
+          <span class="stat-badge trend-up"><i data-lucide="check-circle-2"></i> Verified</span>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon-wrap amber">
+            <i data-lucide="layers"></i>
+          </div>
+          <div class="stat-meta">
+            <div class="stat-value" id="statActiveDepts">0</div>
+            <div class="stat-label" data-i18n="stat_active_depts">Active Depts Covered</div>
+          </div>
+          <span class="stat-badge amber-badge"><i data-lucide="activity"></i> Monitored</span>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon-wrap blue">
+            <i data-lucide="users"></i>
+          </div>
+          <div class="stat-meta">
+            <div class="stat-value" id="statTotalWorkers">0</div>
+            <div class="stat-label" data-i18n="stat_enrolled_workers">Enrolled Workers</div>
+          </div>
+          <span class="stat-badge blue-badge"><i data-lucide="shield"></i> Protected</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admin Portal Sections Tabs / View Selector -->
+    <section class="admin-tabs-section">
+      <div class="admin-tab-controls">
+        <button type="button" class="admin-tab-btn active" id="tabBtnFacilities" data-tab="facilities">
+          <i data-lucide="building-2"></i>
+          <span data-i18n="tab_facilities">Enrolled Facilities</span>
+          <span class="tab-count" id="badgeFacilityCount">0</span>
+        </button>
+        <button type="button" class="admin-tab-btn" id="tabBtnWorkers" data-tab="workers">
+          <i data-lucide="users"></i>
+          <span data-i18n="tab_workers">Workforce Directory</span>
+          <span class="tab-count" id="badgeWorkerCount">0</span>
+        </button>
+        <button type="button" class="admin-tab-btn" id="tabBtnVerifyCert" data-tab="verify">
+          <i data-lucide="qr-code"></i>
+          <span data-i18n="tab_verify_cert">Verify Certificate & Audit</span>
+          <span class="tab-count" id="badgeCertCount">0</span>
+        </button>
+      </div>
+      <div class="admin-tab-extra-actions">
+        <button type="button" class="btn-clear-system-data" id="btnAdminClearAllData" title="Reset all facilities, workforce directory, certificates, and ID counters to 0">
+          <i data-lucide="trash-2"></i>
+          <span>Clear All Data</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION A: ENROLLED FACILITIES TABLE -->
+    <section class="registry-section" id="sectionFacilities">
+      <div class="section-header-flex">
+        <div>
+          <div class="badge-soft" data-i18n="sec_facilities_kicker">Central Industry Registry</div>
+          <h2 class="section-title" data-i18n="sec_facilities_title">Enrolled Industrial Facilities</h2>
+          <p class="section-subtitle" data-i18n="sec_facilities_subtitle">All units verified with unique KawachAR organization identifiers (KAW-XXXXX)</p>
+        </div>
+        <div class="registry-actions">
+          <div class="search-box">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" id="registrySearchInput" placeholder="Search by name, ID, city, or license..." data-i18n-placeholder="search_facilities_ph">
+          </div>
+          <button id="openModalTableBtn" class="btn btn-primary">
+            <i data-lucide="plus-circle"></i>
+            <span data-i18n="btn_register_new_site">Register New Facility</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Organization Registry Cards / Table -->
+      <div class="registry-table-wrapper">
+        <table class="registry-table" id="registryTable">
+          <thead>
+            <tr>
+              <th data-i18n="th_org_id">Org ID</th>
+              <th data-i18n="th_facility_name">Facility & Site</th>
+              <th data-i18n="th_industry_type">Industry Type</th>
+              <th data-i18n="th_reg_doc">Registration Document</th>
+              <th data-i18n="th_active_depts">Active Departments</th>
+              <th data-i18n="th_safety_officer">Admin / Safety Officer</th>
+              <th data-i18n="th_actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="registryTableBody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+
+        <!-- Empty State -->
+        <div id="registryEmptyState" class="empty-state hidden">
+          <div class="empty-icon-wrap">
+            <i data-lucide="building-2"></i>
+          </div>
+          <h3 class="empty-title" data-i18n="empty_facilities_title">No matching industrial registrations found</h3>
+          <p class="empty-desc" data-i18n="empty_facilities_desc">Click "Register New Facility" to onboard your first unit.</p>
+          <button class="btn btn-primary" id="emptyStateRegisterBtn">
+            <i data-lucide="shield-plus"></i> <span data-i18n="btn_register_new_site">Register New Facility</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION B: ENROLLED WORKERS TABLE -->
+    <section class="registry-section hidden" id="sectionWorkers">
+      <div class="section-header-flex">
+        <div>
+          <div class="badge-soft" data-i18n="sec_workers_kicker">Enterprise Workforce Registry</div>
+          <h2 class="section-title" data-i18n="sec_workers_title">Enrolled Workers & Credentials</h2>
+          <p class="section-subtitle" data-i18n="sec_workers_subtitle">Workers assigned sequential EMP-XXXX usernames and department access scopes</p>
+        </div>
+        <div class="registry-actions">
+          <div class="search-box">
+            <i data-lucide="search" class="search-icon"></i>
+            <input type="text" id="workerSearchInput" placeholder="Search worker by name, EMP ID, mobile..." data-i18n-placeholder="search_workers_ph">
+          </div>
+          <button id="openAddWorkerModalBtn" class="btn btn-amber">
+            <i data-lucide="user-plus"></i>
+            <span data-i18n="btn_add_worker">Add New Worker</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Workers Table -->
+      <div class="registry-table-wrapper">
+        <table class="registry-table" id="workersTable">
+          <thead>
+            <tr>
+              <th data-i18n="th_worker_id">Worker ID</th>
+              <th data-i18n="th_worker_name">Full Name</th>
+              <th data-i18n="th_worker_facility">Assigned Facility</th>
+              <th data-i18n="th_worker_mobile">Mobile Number</th>
+              <th data-i18n="th_worker_aadhaar">Aadhaar (Demo)</th>
+              <th data-i18n="th_worker_depts">Assigned Departments</th>
+              <th data-i18n="th_worker_training_status">AR Safety Status</th>
+              <th data-i18n="th_worker_status">Account Status</th>
+              <th data-i18n="th_actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="workersTableBody">
+            <!-- Populated via JS -->
+          </tbody>
+        </table>
+
+        <!-- Empty Workers State -->
+        <div id="workersEmptyState" class="empty-state hidden">
+          <div class="empty-icon-wrap">
+            <i data-lucide="users"></i>
+          </div>
+          <h3 class="empty-title" data-i18n="empty_workers_title">No workers enrolled yet</h3>
+          <p class="empty-desc" data-i18n="empty_workers_desc">Admin can enroll workers to generate their EMP IDs and credentials.</p>
+          <button class="btn btn-amber" id="emptyStateAddWorkerBtn">
+            <i data-lucide="user-plus"></i> <span data-i18n="btn_add_worker">Add New Worker</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION C: QR CERTIFICATE VERIFICATION & AUDIT (PHASE 3 REQUIREMENT 6) -->
+    <section class="registry-section hidden" id="sectionVerifyCert">
+      <div class="section-header-flex">
+        <div>
+          <div class="badge-soft" data-i18n="sec_verify_kicker">DGMS Compliance Audit Engine</div>
+          <h2 class="section-title" data-i18n="sec_verify_title">QR Certificate Verification & Registry</h2>
+          <p class="section-subtitle" data-i18n="sec_verify_subtitle">Lookup cryptographically signed worker safety certificates, verify authenticity, and review compliance audit logs.</p>
+        </div>
+      </div>
+
+      <!-- Certificate Verification Search Box & Quick Pills -->
+      <div class="verify-search-card">
+        <div class="verify-search-header">
+          <div class="verify-search-icon">
+            <i data-lucide="qr-code"></i>
+          </div>
+          <div>
+            <h3 class="verify-search-title" data-i18n="verify_box_title">Verify Safety Certificate Authenticity</h3>
+            <p class="verify-search-desc" data-i18n="verify_box_desc">Enter the Certificate ID encoded in the worker's QR badge (Format: KAW-CERT-XXXXX)</p>
+          </div>
+        </div>
+
+        <form id="verifyCertForm" class="verify-search-form" novalidate>
+          <div class="verify-input-group">
+            <i data-lucide="search" class="verify-input-icon"></i>
+            <input 
+              type="text" 
+              id="inputCertLookup" 
+              class="verify-input font-mono font-bold" 
+              placeholder="e.g. KAW-CERT-84921" 
+              data-i18n-placeholder="ph_cert_lookup"
+              autocomplete="off"
+            >
+            <button type="submit" class="btn btn-primary" id="btnRunCertLookup">
+              <i data-lucide="shield-check"></i>
+              <span data-i18n="btn_verify_cert">Verify Certificate</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- Quick Sample Lookup Pills -->
+        <div class="verify-quick-pills-row">
+          <span class="quick-pill-label" data-i18n="lbl_recent_certs">Recent / Sample Passes:</span>
+          <div class="quick-pills-wrap" id="certQuickPills">
+            <!-- Dynamically populated or clicked -->
+            <span class="text-xs text-slate-400 italic" data-i18n="hint_no_issued_certs">Complete training modules in worker app to generate certificates</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Verification Result Display Area -->
+      <div id="certVerificationResultContainer" class="verify-result-container hidden">
+        <!-- Dynamically rendered (Valid Card or Not Found Alert) -->
+      </div>
+
+      <!-- Issued Certificates Audit Table -->
+      <div class="mt-8">
+        <div class="flex justify-between items-center mb-3">
+          <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="file-check-2" class="w-4 h-4 text-emerald-600"></i>
+            <span data-i18n="title_issued_registry">Issued Workforce Certifications (Audit Log)</span>
+          </h3>
+          <span class="text-xs text-slate-500 font-mono" id="certRegistryCountText">0 Records Signed</span>
+        </div>
+
+        <div class="registry-table-wrapper">
+          <table class="registry-table" id="certAuditTable">
+            <thead>
+              <tr>
+                <th data-i18n="th_cert_id">Certificate ID</th>
+                <th data-i18n="th_worker_name">Worker Name</th>
+                <th data-i18n="th_worker_facility">Assigned Facility</th>
+                <th data-i18n="th_module_completed">Module Completed</th>
+                <th data-i18n="th_score_pct">Score (%)</th>
+                <th data-i18n="th_issue_date">Issue Date</th>
+                <th data-i18n="th_verification_status">Status</th>
+                <th data-i18n="th_actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="certAuditTableBody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+
+          <div id="certAuditEmptyState" class="empty-state">
+            <div class="empty-icon-wrap">
+              <i data-lucide="award"></i>
+            </div>
+            <h3 class="empty-title" data-i18n="empty_certs_title">No safety certificates issued yet</h3>
+            <p class="empty-desc" data-i18n="empty_certs_desc">Log in as a worker, complete the AR training modules, and certificates will appear here automatically for DGMS compliance audit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- VIEW 3: WORKER MOBILE APP (CENTERED REALISTIC PHONE FRAME)                -->
+  <!-- ========================================================================= -->
+  <section class="worker-app-workspace hidden" id="viewWorkerApp">
+    
+    <!-- Ambient Context Bar -->
+    <div class="workspace-header-bar">
+      <div class="workspace-badge">
+        <span class="pulse-dot"></span>
+        <span data-i18n="worker_workspace_badge">Android Mobile Client Simulation • Centered Device Viewport</span>
+      </div>
+      <div class="workspace-actions">
+        <button type="button" class="btn-subtle btn-xs" id="workerViewBackToLanding" title="Return to Welcome Screen">
+          <i data-lucide="home"></i> <span data-i18n="nav_home">Home</span>
+        </button>
+        <button type="button" class="btn-subtle btn-xs" id="quickResetAppBtn" title="Reset Session & Cache">
+          <i data-lucide="rotate-ccw"></i> <span data-i18n="btn_reset_flow">Reset Flow</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="phone-stage-container">
+      
+      <!-- Realistic Mobile Phone Frame Mockup -->
+      <div class="mobile-phone-frame" id="mobilePhoneFrame">
+        
+        <!-- Physical Phone Elements: Side Buttons -->
+        <div class="phone-button phone-btn-power" title="Power Button"></div>
+        <div class="phone-button phone-btn-volume-up" title="Volume Up"></div>
+        <div class="phone-button phone-btn-volume-down" title="Volume Down"></div>
+
+        <!-- Phone Top Bezel, Notch, Punch-hole Camera & Speaker -->
+        <div class="phone-bezel-top">
+          <div class="phone-speaker-slit"></div>
+          <div class="phone-camera-hole" title="Front Camera Sensor">
+            <div class="lens-reflection"></div>
+          </div>
+        </div>
+
+        <!-- Dynamic Android Status Bar -->
+        <div class="phone-status-bar" id="phoneStatusBar">
+          <div class="status-bar-left">
+            <span class="status-clock" id="statusClock">09:41</span>
+            <span class="status-dot-indicator" title="DGMS Geo-Fence Active"></span>
+          </div>
+          <div class="status-bar-right">
+            <span class="network-badge" id="statusNetworkBadge">5G</span>
+            <i data-lucide="wifi" class="status-icon" id="statusWifiIcon"></i>
+            <div class="battery-indicator" title="Battery 95%">
+              <div class="battery-body">
+                <div class="battery-level"></div>
+              </div>
+              <div class="battery-cap"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phone App Native Header -->
+        <div class="phone-app-header" id="phoneAppHeader">
+          <div class="phone-header-left">
+            <button type="button" class="phone-back-btn hidden" id="phoneBackBtn" aria-label="Go Back">
+              <i data-lucide="arrow-left"></i>
+            </button>
+            <div class="phone-app-brand">
+              <div class="phone-mini-logo">
+                <i data-lucide="shield" class="mini-logo-icon"></i>
+              </div>
+              <div>
+                <div class="phone-brand-name">Kawach<span class="brand-accent">AR</span></div>
+                <div class="phone-brand-sub" id="phoneHeaderSub" data-i18n="phone_header_sub">Worker Safety Client</div>
+              </div>
+            </div>
+          </div>
+          <div class="phone-header-right">
+            <!-- In-Phone Mini Language Switcher -->
+            <div class="phone-lang-chip" title="Change Language">
+              <select id="phoneLangSelector" class="phone-lang-select" aria-label="Change Mobile Language">
+                <option value="en">EN</option>
+                <option value="hi">HI</option>
+                <option value="sat">SAT</option>
+              </select>
+            </div>
+            <!-- Interactive Offline Mode Toggle (Online / Offline / Syncing) -->
+            <button type="button" class="network-mode-pill online" id="btnNetworkToggle" title="Click to toggle Offline Mode" aria-label="Toggle Online/Offline Mode">
+              <span class="net-pill-dot"></span>
+              <i data-lucide="wifi" class="net-pill-icon" id="netPillIcon"></i>
+              <span class="net-pill-txt" id="netPillText" data-i18n="status_online">Online</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scrollable Screen Content Container Inside Phone -->
+        <div class="phone-screen-viewport" id="phoneScreenViewport">
+          
+          <!-- =============================================================== -->
+          <!-- SCREEN 1: NEW WORKER LOGIN FLOW (POINT 6 & REQ 11 AUTO-FILL)    -->
+          <!-- =============================================================== -->
+          <div class="phone-screen-pane active" id="screenWorkerLogin">
+            <div class="screen-content-pad">
+              
+              <!-- Login Brand Header -->
+              <div class="login-brand-header">
+                <div class="login-shield-badge">
+                  <i data-lucide="shield-check" class="login-shield-icon"></i>
+                </div>
+                <h2 class="login-title" data-i18n="worker_login_title">Worker Login</h2>
+                <p class="login-subtitle" data-i18n="worker_login_sub">
+                  Select your organization and authenticate with your assigned Worker ID.
+                </p>
+              </div>
+
+              <!-- 1-Click Fast Live Demo Button (POINT 6) -->
+              <div class="demo-worker-box">
+                <div class="demo-worker-info">
+                  <div class="demo-worker-title">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500 inline"></i>
+                    <span data-i18n="demo_worker_title">Live Demo Quick Access</span>
+                  </div>
+                  <div class="demo-worker-desc" data-i18n="demo_worker_desc">Auto-fill sample worker credentials and log in directly:</div>
+                </div>
+                <button type="button" class="btn-demo-worker" id="btnUseDemoWorker">
+                  <i data-lucide="zap"></i>
+                  <span data-i18n="btn_use_demo_worker">Use Demo Worker (Ramesh - EMP-0001)</span>
+                </button>
+              </div>
+
+              <div class="login-divider">
+                <span data-i18n="login_or_divider">or enter credentials</span>
+              </div>
+
+              <!-- Worker Login Form (Req 11: Auto-fill button added) -->
+              <form id="workerLoginForm" class="phone-form" novalidate>
+                
+                <!-- Demo Fill Details Link for Form (Req 11) -->
+                <div class="flex justify-between items-center mb-1">
+                  <span class="text-xs text-slate-500 font-semibold" data-i18n="lbl_worker_auth">Worker Authentication</span>
+                  <button type="button" class="btn-demo-fill-pill" id="btnDemoFillLogin">
+                    <i data-lucide="sparkles" class="w-3 h-3"></i>
+                    <span data-i18n="btn_fill_demo">Fill Demo Details</span>
+                  </button>
+                </div>
+
+                <!-- Global Error Alert -->
+                <div class="phone-alert-error hidden" id="loginGlobalError">
+                  <i data-lucide="alert-circle" class="phone-alert-icon"></i>
+                  <div class="phone-alert-text" id="loginGlobalErrorMessage">
+                    Incorrect credentials. Please try again.
+                  </div>
+                </div>
+
+                <!-- Field 1: Select Organization (Dropdown from Registered Facilities) -->
+                <div class="phone-form-group">
+                  <label for="loginOrgSelect" class="phone-label">
+                    <span data-i18n="lbl_select_org">Select Organization / Facility</span> <span class="required-star">*</span>
+                  </label>
+                  <div class="phone-select-wrap">
+                    <i data-lucide="building" class="phone-input-icon"></i>
+                    <select id="loginOrgSelect" name="loginOrgSelect" class="phone-select" required>
+                      <option value="" disabled selected data-i18n="opt_choose_facility">Choose your facility...</option>
+                      <!-- Dynamically populated -->
+                    </select>
+                    <i data-lucide="chevron-down" class="phone-select-arrow"></i>
+                  </div>
+                  <div class="field-error-msg" id="loginOrgSelectError" data-i18n="err_select_org">Please select your organization.</div>
+                </div>
+
+                <!-- Field 2: Worker ID (EMP-XXXX) -->
+                <div class="phone-form-group">
+                  <div class="flex justify-between items-center mb-1">
+                    <label for="loginWorkerId" class="phone-label mb-0">
+                      <span data-i18n="lbl_worker_id">Worker ID (Username)</span> <span class="required-star">*</span>
+                    </label>
+                    <span class="id-format-hint" data-i18n="lbl_emp_format">Format: EMP-XXXX</span>
+                  </div>
+                  <div class="phone-input-wrap">
+                    <i data-lucide="id-card" class="phone-input-icon text-amber-600"></i>
+                    <input 
+                      type="text" 
+                      id="loginWorkerId" 
+                      name="loginWorkerId" 
+                      class="phone-input font-mono font-bold" 
+                      placeholder="e.g. EMP-0001" 
+                      required
+                      autocomplete="username"
+                    >
+                  </div>
+                  <div class="field-error-msg" id="loginWorkerIdError" data-i18n="err_worker_id">Please enter your Worker ID.</div>
+                </div>
+
+                <!-- First-Time Login Banner & Password Setup (POINT 6) -->
+                <div class="first-time-helper hidden" id="firstTimeHelper">
+                  <div class="first-time-icon">
+                    <i data-lucide="key-round"></i>
+                  </div>
+                  <div class="first-time-text">
+                    <div class="first-time-title" data-i18n="first_time_title">First-Time Login Setup</div>
+                    <div class="first-time-sub" data-i18n="first_time_sub">This worker ID is not yet activated. Set your password below to complete setup:</div>
+                  </div>
+                </div>
+
+                <!-- Field 3: Password (Required) -->
+                <div class="phone-form-group">
+                  <div class="flex justify-between items-center mb-1">
+                    <label for="loginPassword" class="phone-label mb-0" id="lblLoginPassword">
+                      <span data-i18n="lbl_password">Password</span> <span class="required-star">*</span>
+                    </label>
+                  </div>
+                  <div class="phone-input-wrap">
+                    <i data-lucide="lock" class="phone-input-icon"></i>
+                    <input 
+                      type="password" 
+                      id="loginPassword" 
+                      name="loginPassword" 
+                      class="phone-input" 
+                      placeholder="Enter password (min. 6 characters)" 
+                      data-i18n-placeholder="ph_password"
+                      minlength="6"
+                      required
+                      autocomplete="current-password"
+                    >
+                    <button type="button" class="btn-toggle-pwd" id="toggleLoginPwdBtn" aria-label="Toggle password visibility">
+                      <i data-lucide="eye" class="pwd-eye-icon"></i>
+                    </button>
+                  </div>
+                  <div class="field-error-msg" id="loginPasswordError" data-i18n="err_password">Please enter your password.</div>
+                </div>
+
+                <!-- Field 4: Confirm Password (Displayed on First-Time Setup) -->
+                <div class="phone-form-group hidden" id="confirmPasswordGroup">
+                  <label for="loginConfirmPassword" class="phone-label">
+                    <span data-i18n="lbl_confirm_password">Confirm Password</span> <span class="required-star">*</span>
+                  </label>
+                  <div class="phone-input-wrap">
+                    <i data-lucide="check-check" class="phone-input-icon"></i>
+                    <input 
+                      type="password" 
+                      id="loginConfirmPassword" 
+                      name="loginConfirmPassword" 
+                      class="phone-input" 
+                      placeholder="Re-enter your password" 
+                      data-i18n-placeholder="ph_confirm_password"
+                      autocomplete="new-password"
+                    >
+                    <button type="button" class="btn-toggle-pwd" id="toggleLoginConfirmPwdBtn" aria-label="Toggle confirm password visibility">
+                      <i data-lucide="eye" class="pwd-eye-icon"></i>
+                    </button>
+                  </div>
+                  <div class="field-error-msg" id="loginConfirmPasswordError" data-i18n="err_pwd_mismatch">Passwords must match.</div>
+                </div>
+
+                <!-- Action Button -->
+                <div class="phone-btn-stack mt-3">
+                  <button type="submit" class="btn-phone-primary" id="btnLoginWorker">
+                    <i data-lucide="log-in"></i>
+                    <span id="btnLoginText" data-i18n="btn_login_worker">Log In to KawachAR</span>
+                  </button>
+                </div>
+
+                <!-- Help Link -->
+                <div class="phone-footer-help">
+                  <p data-i18n="help_no_id">Don't have your Worker ID?</p>
+                  <span class="help-admin-note" data-i18n="help_contact_admin">Worker accounts are registered by your Plant Safety Officer in the Admin Portal.</span>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- SCREEN 2: TRAINING MODULES PLACEHOLDER (POST-LOGIN)              -->
+          <!-- =============================================================== -->
+          <div class="phone-screen-pane" id="screenTrainingModules">
+            <div class="screen-content-pad">
+              
+              <!-- Worker Profile Card at Top -->
+              <div class="worker-dashboard-header">
+                <div class="worker-profile-row">
+                  <div class="worker-avatar">
+                    <i data-lucide="hard-hat" class="avatar-icon"></i>
+                  </div>
+                  <div class="worker-profile-info">
+                    <div class="profile-name" id="dashWorkerName">Ramesh Kumar Soren</div>
+                    <div class="profile-meta">
+                      <span class="profile-id font-mono" id="dashWorkerId">EMP-0001</span>
+                      <span class="meta-dot">•</span>
+                      <span class="profile-facility" id="dashFacilityName">Bharat Mining Corp</span>
+                    </div>
+                  </div>
+                  <button type="button" class="btn-logout" id="btnLogoutWorker" title="Log Out of Session">
+                    <i data-lucide="log-out"></i>
+                  </button>
+                </div>
+
+                <!-- Active Departments Tag Bar -->
+                <div class="dash-depts-scroll" id="dashWorkerDepts">
+                  <!-- Active dept chips -->
+                </div>
+              </div>
+
+              <!-- Live Safety & Telemetry Status -->
+              <div class="safety-telemetry-banner">
+                <div class="telemetry-banner-left">
+                  <div class="safety-status-pulse" id="safetyStatusPulse"></div>
+                  <div>
+                    <div class="safety-status-title" data-i18n="geo_fence_active">DGMS AR Geo-Fence Active</div>
+                    <div class="safety-status-sub" data-i18n="geo_fence_sub">Zero-hardware mobile AR camera ready</div>
+                  </div>
+                </div>
+                <span class="safety-tag" id="dashNetworkTag" data-i18n="status_online">Online</span>
+              </div>
+
+              <!-- Main Heading Required by User Spec -->
+              <div class="modules-section-title-wrap">
+                <h1 class="modules-main-heading" data-i18n="modules_heading">Training Modules</h1>
+                <p class="modules-subheading" data-i18n="modules_subheading">
+                  Interactive smartphone AR hazard simulations and DGMS safety compliance courses.
+                </p>
+              </div>
+
+              <!-- Phase 3 Teaser Alert / Status -->
+              <div class="phase3-teaser-card">
+                <div class="teaser-icon-wrap">
+                  <i data-lucide="sparkles"></i>
+                </div>
+                <div class="teaser-body">
+                  <div class="teaser-kicker" data-i18n="phase3_kicker">Phase 3 Preview</div>
+                  <div class="teaser-title" data-i18n="phase3_title">AR Camera Simulator Active</div>
+                  <div class="teaser-desc" data-i18n="phase3_desc">Interactive 3D hazard models, poisonous gas projection, and machine danger zones are simulated on this device.</div>
+                </div>
+              </div>
+
+              <!-- 5 Training Module Cards (Phase 3 Requirement 1) -->
+              <div class="modules-grid-list" id="modulesGridList">
+                
+                <!-- Module 1: Fire & Explosion Response (ACTIVE & FUNCTIONAL) -->
+                <div class="module-card module-card-interactive active-mod-card" id="cardModuleFireExplosion" data-module-id="fire_explosion" tabindex="0" role="button" aria-label="Start Fire & Explosion Response Module">
+                  <div class="module-card-top">
+                    <div class="module-card-icon bg-red-light">
+                      <i data-lucide="flame" class="text-red-dark"></i>
+                    </div>
+                    <span class="badge-status-active"><span class="pulse-dot-green"></span> <span data-i18n="badge_active_module">Active • 4 Tasks</span></span>
+                  </div>
+                  <div class="module-card-body">
+                    <div class="module-card-tag" data-i18n="mod_fire_tag">Module 01 • Emergency Hazard</div>
+                    <h2 class="module-card-title" data-i18n="mod_fire_title">Fire & Explosion Response</h2>
+                    <p class="module-card-desc" data-i18n="mod_fire_desc">Identify emergency escape routes in AR, select correct extinguisher classes for electrical fires, and sequence evacuation protocols.</p>
+                  </div>
+                  <div class="module-card-footer">
+                    <span class="badge-ar-launch"><i data-lucide="play" class="w-3.5 h-3.5 inline"></i> <span data-i18n="btn_start_module">Start AR Module</span></span>
+                    <span class="module-duration"><i data-lucide="clock" class="w-3 h-3 inline"></i> 10 mins</span>
+                  </div>
+                </div>
+
+                <!-- Module 2: Gas Leak & Confined Space Protocol (ACTIVE & FUNCTIONAL) -->
+                <div class="module-card module-card-interactive active-mod-card" id="cardModuleGasLeak" data-module-id="gas_leak" tabindex="0" role="button" aria-label="Start Gas Leak & Confined Space Protocol Module">
+                  <div class="module-card-top">
+                    <div class="module-card-icon bg-amber-light">
+                      <i data-lucide="wind" class="text-amber-dark"></i>
+                    </div>
+                    <span class="badge-status-active"><span class="pulse-dot-green"></span> <span data-i18n="badge_active_module">Active • 4 Tasks</span></span>
+                  </div>
+                  <div class="module-card-body">
+                    <div class="module-card-tag" data-i18n="mod_gas_tag">Module 02 • Toxic Atmosphere</div>
+                    <h2 class="module-card-title" data-i18n="mod_gas_title">Gas Leak & Confined Space Protocol</h2>
+                    <p class="module-card-desc" data-i18n="mod_gas_desc">Recognize hazardous perimeter zones via AR reticles, select mandatory SCBA respiratory PPE, and master the buddy-system protocol.</p>
+                  </div>
+                  <div class="module-card-footer">
+                    <span class="badge-ar-launch"><i data-lucide="play" class="w-3.5 h-3.5 inline"></i> <span data-i18n="btn_start_module">Start AR Module</span></span>
+                    <span class="module-duration"><i data-lucide="clock" class="w-3 h-3 inline"></i> 12 mins</span>
+                  </div>
+                </div>
+
+                <!-- Module 3: Machinery Safety (COMING SOON & DISABLED) -->
+                <div class="module-card module-card-disabled" aria-disabled="true" title="Coming Soon">
+                  <div class="module-card-top">
+                    <div class="module-card-icon bg-slate-100">
+                      <i data-lucide="shield-alert" class="text-slate-500"></i>
+                    </div>
+                    <span class="badge-coming-soon" data-i18n="badge_coming_soon">Coming Soon</span>
+                  </div>
+                  <div class="module-card-body">
+                    <div class="module-card-tag text-slate-400" data-i18n="mod_machinery_tag">Module 03 • Mechanical Systems</div>
+                    <h2 class="module-card-title text-slate-500" data-i18n="mod_machinery_title">Machinery Safety</h2>
+                    <p class="module-card-desc text-slate-400" data-i18n="mod_machinery_desc">HEMM conveyor nip-point safety guards, crusher emergency lockouts, and blind-spot telemetry.</p>
+                  </div>
+                  <div class="module-card-footer text-slate-400">
+                    <span class="badge-locked"><i data-lucide="lock" class="w-3 h-3 inline"></i> <span data-i18n="lbl_disabled_mod">Locked</span></span>
+                    <span class="module-duration" data-i18n="duration_15_mins">15 mins</span>
+                  </div>
+                </div>
+
+                <!-- Module 4: Electrical Hazards (COMING SOON & DISABLED) -->
+                <div class="module-card module-card-disabled" aria-disabled="true" title="Coming Soon">
+                  <div class="module-card-top">
+                    <div class="module-card-icon bg-slate-100">
+                      <i data-lucide="zap" class="text-slate-500"></i>
+                    </div>
+                    <span class="badge-coming-soon" data-i18n="badge_coming_soon">Coming Soon</span>
+                  </div>
+                  <div class="module-card-body">
+                    <div class="module-card-tag text-slate-400" data-i18n="mod_electrical_tag">Module 04 • High Voltage</div>
+                    <h2 class="module-card-title text-slate-500" data-i18n="mod_electrical_title">Electrical Hazards</h2>
+                    <p class="module-card-desc text-slate-400" data-i18n="mod_electrical_desc">High-tension flashover clearance boundaries, substation LOTO protocols, and live cable detection.</p>
+                  </div>
+                  <div class="module-card-footer text-slate-400">
+                    <span class="badge-locked"><i data-lucide="lock" class="w-3 h-3 inline"></i> <span data-i18n="lbl_disabled_mod">Locked</span></span>
+                    <span class="module-duration" data-i18n="duration_15_mins">15 mins</span>
+                  </div>
+                </div>
+
+                <!-- Module 5: PPE & Evacuation (COMING SOON & DISABLED) -->
+                <div class="module-card module-card-disabled" aria-disabled="true" title="Coming Soon">
+                  <div class="module-card-top">
+                    <div class="module-card-icon bg-slate-100">
+                      <i data-lucide="hard-hat" class="text-slate-500"></i>
+                    </div>
+                    <span class="badge-coming-soon" data-i18n="badge_coming_soon">Coming Soon</span>
+                  </div>
+                  <div class="module-card-body">
+                    <div class="module-card-tag text-slate-400" data-i18n="mod_ppe_tag">Module 05 • Plant Defense</div>
+                    <h2 class="module-card-title text-slate-500" data-i18n="mod_ppe_title">PPE & Evacuation</h2>
+                    <p class="module-card-desc text-slate-400" data-i18n="mod_ppe_desc">Comprehensive multi-hazard personal protective equipment inspection and rapid muster point drill.</p>
+                  </div>
+                  <div class="module-card-footer text-slate-400">
+                    <span class="badge-locked"><i data-lucide="lock" class="w-3 h-3 inline"></i> <span data-i18n="lbl_disabled_mod">Locked</span></span>
+                    <span class="module-duration" data-i18n="duration_10_mins">10 mins</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Logout Action -->
+              <div class="phone-btn-stack mt-4">
+                <button type="button" class="btn-phone-subtle" id="btnLogoutFromModules">
+                  <i data-lucide="log-out"></i>
+                  <span data-i18n="btn_logout">Log Out of Session</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- SCREEN 3: AR SIMULATION HUD SCREEN (PHASE 3 REQUIREMENTS 2, 3, 4)-->
+          <!-- =============================================================== -->
+          <div class="phone-screen-pane ar-simulation-pane" id="screenARSimulation">
+            
+            <!-- AR Top HUD Controls Bar -->
+            <div class="ar-hud-top-bar">
+              <button type="button" class="ar-hud-btn-back" id="btnExitARSimulation" title="Exit AR Simulation">
+                <i data-lucide="arrow-left"></i>
+              </button>
+              <div class="ar-hud-title-wrap">
+                <div class="ar-hud-module-name" id="arHudModuleName">Fire & Explosion Response</div>
+                <div class="ar-hud-task-step" id="arHudTaskStep">Task 1 of 4: Exit Identification</div>
+              </div>
+              <div class="ar-hud-live-tag" id="arHudLiveTag">
+                <span class="pulse-dot-red" id="arHudLiveDot"></span>
+                <span id="arHudLiveText">LIVE AR</span>
+              </div>
+            </div>
+
+            <!-- Task Step Progress Indicator Bar (4 Tasks) -->
+            <div class="ar-progress-tracker">
+              <div class="ar-step-dot active" id="arStepDot1">1</div>
+              <div class="ar-step-line" id="arStepLine1"></div>
+              <div class="ar-step-dot" id="arStepDot2">2</div>
+              <div class="ar-step-line" id="arStepLine2"></div>
+              <div class="ar-step-dot" id="arStepDot3">3</div>
+              <div class="ar-step-line" id="arStepLine3"></div>
+              <div class="ar-step-dot" id="arStepDot4">4</div>
+            </div>
+
+            <!-- Camera Viewport & Dynamic Markers Container -->
+            <div class="ar-camera-viewport" id="arCameraViewport">
+              
+              <!-- Real Video Stream -->
+              <video id="arVideoFeed" class="ar-video-stream hidden" autoplay playsinline muted></video>
+              
+              <!-- Static Industrial Image Fallback (Hidden by default, shown ONLY if permission denied / no camera) -->
+              <div id="arFallbackFeed" class="ar-fallback-stream hidden">
+                <img src="/hero-mining-ar.jpg" alt="Industrial AR Simulation Environment" class="ar-fallback-img">
+                <div class="ar-fallback-badge">
+                  <i data-lucide="camera-off" class="w-3.5 h-3.5"></i>
+                  <span data-i18n="lbl_sim_feed">Simulated AR Camera Feed</span>
+                </div>
+              </div>
+
+              <!-- 2.5s AR Scanning Overlay (Req 4) -->
+              <div class="ar-scanning-overlay" id="arScanningOverlay">
+                <div class="ar-laser-beam"></div>
+                <div class="ar-hud-corners">
+                  <span class="corner top-left"></span>
+                  <span class="corner top-right"></span>
+                  <span class="corner bottom-left"></span>
+                  <span class="corner bottom-right"></span>
+                </div>
+                <div class="ar-crosshair-center"></div>
+                
+                <div class="ar-scan-status-pill">
+                  <span class="ar-scan-spinner"></span>
+                  <span id="arScanStatusText" data-i18n="ar_scan_init">Initializing AR Engine...</span>
+                </div>
+              </div>
+
+              <!-- Interactive Floating AR Reticle Markers -->
+              <div class="ar-markers-container" id="arMarkersContainer">
+                <!-- Dynamically populated per task at distinct screen coordinates -->
+              </div>
+
+            </div> <!-- End of .ar-camera-viewport -->
+
+            <!-- Bottom Floating Task Interaction Drawer / Card -->
+            <div class="ar-task-panel" id="arTaskPanel">
+              <div class="ar-task-panel-header">
+                <div class="ar-task-badge" id="arTaskBadge">AR HAZARD IDENTIFICATION</div>
+                <h3 class="ar-task-heading" id="arTaskHeading">Emergency Exit Identification</h3>
+              </div>
+
+              <div class="ar-task-scenario-box" id="arTaskScenarioBox">
+                <i data-lucide="alert-triangle" class="scenario-icon"></i>
+                <div class="scenario-text" id="arTaskScenarioText">
+                  Smoke is rapidly filling Sector C-4. Scan your surroundings and locate the safest verified escape hatch marker.
+                </div>
+              </div>
+
+              <!-- Dynamic Interactive Task Options Area -->
+              <div class="ar-task-options-wrap" id="arTaskOptionsWrap">
+                <!-- Populated per task: AR Marker Choices, MCQ Options, or Evacuation Sequence Ordering -->
+              </div>
+
+              <!-- Task Feedback Alert (Success / Error) -->
+              <div class="ar-feedback-alert hidden" id="arTaskFeedbackAlert">
+                <i data-lucide="check-circle" class="feedback-icon" id="arFeedbackIcon"></i>
+                <div class="feedback-text" id="arFeedbackText">Correct! Primary Escape Hatch B-2 is clear of smoke.</div>
+              </div>
+
+              <!-- Task Action Buttons -->
+              <div class="ar-task-actions">
+                <button type="button" class="btn-ar-submit" id="btnSubmitARTask">
+                  <span id="btnSubmitARTaskText" data-i18n="btn_confirm_choice">Confirm Selection</span>
+                  <i data-lucide="arrow-right" id="btnSubmitARTaskIcon"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- SCREEN 4: CERTIFICATE & QR VERIFICATION SCREEN (REQUIREMENTS 5) -->
+          <!-- =============================================================== -->
+          <div class="phone-screen-pane certificate-pane" id="screenCertificate">
+            <div class="certificate-screen-content">
+              
+              <!-- Certificate Navigation Header -->
+              <div class="cert-nav-bar">
+                <button type="button" class="btn-cert-back" id="btnCertBackToModules">
+                  <i data-lucide="chevron-left"></i>
+                  <span data-i18n="btn_all_modules">All Modules</span>
+                </button>
+                <div class="cert-status-tag" id="certStatusTag">
+                  <i data-lucide="shield-check" class="w-3.5 h-3.5" id="certStatusTagIcon"></i>
+                  <span id="certStatusTagText" data-i18n="cert_verified_tag">DGMS Verified</span>
+                </div>
+              </div>
+
+              <!-- Offline Pending Sync Alert Notice (Shown when completed in Offline Mode) -->
+              <div class="cert-offline-banner hidden" id="certOfflineBanner">
+                <div class="cert-offline-banner-left">
+                  <i data-lucide="hard-drive" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+                  <div class="cert-offline-banner-text" id="certOfflineBannerText" data-i18n="offline_notice_text">
+                    Saved locally, pending sync to DGMS Cloud.
+                  </div>
+                </div>
+                <span class="offline-badge-pill" data-i18n="badge_offline_pending">Saved locally, pending sync</span>
+              </div>
+
+              <!-- Digital Certificate Passport Card -->
+              <div class="cert-passport-card" id="certPassportCard">
+                
+                <!-- Card Header with DGMS Seal -->
+                <div class="cert-card-header">
+                  <div class="cert-logo-group">
+                    <div class="cert-emblem">
+                      <i data-lucide="shield-check" class="w-5 h-5 text-amber-500"></i>
+                    </div>
+                    <div>
+                      <div class="cert-issuer-title">KAWACH<span class="text-amber-500">AR</span> • DGMS NETWORK</div>
+                      <div class="cert-issuer-sub" data-i18n="cert_doc_title">Digital Safety Competency Passport</div>
+                    </div>
+                  </div>
+                  <div class="cert-ribbon-badge" title="DGMS Certified Standard">
+                    <i data-lucide="award"></i>
+                  </div>
+                </div>
+
+                <!-- Worker Credentials Row -->
+                <div class="cert-worker-hero">
+                  <div class="cert-worker-avatar">
+                    <i data-lucide="hard-hat"></i>
+                  </div>
+                  <div class="cert-worker-meta">
+                    <div class="cert-worker-name" id="certWorkerName">Ramesh Kumar Soren</div>
+                    <div class="cert-worker-ids">
+                      <span class="cert-emp-id font-mono" id="certWorkerId">EMP-0001</span>
+                      <span class="cert-dot">•</span>
+                      <span class="cert-org-name" id="certOrgName">Bharat Mining & Minerals Corp. Unit #4</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Module Completion & Score -->
+                <div class="cert-achievement-box">
+                  <div class="cert-module-badge-row">
+                    <div class="cert-module-label" data-i18n="lbl_certified_module">Certified Module:</div>
+                    <div class="cert-module-name" id="certModuleName">Fire & Explosion Response</div>
+                  </div>
+
+                  <div class="cert-score-display-row">
+                    <div class="cert-score-badge" id="certScoreBadge">
+                      <span class="score-number font-mono" id="certScoreNumber">100%</span>
+                      <span class="score-label" data-i18n="lbl_final_score">Final Score</span>
+                    </div>
+                    <div class="cert-result-pill" id="certResultPill">
+                      <i data-lucide="check-check" class="w-4 h-4"></i>
+                      <span data-i18n="cert_passed_status">Passed • Compliant</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Generated QR Code Section (Req 5) -->
+                <div class="cert-qr-section">
+                  <div class="qr-canvas-box">
+                    <canvas id="certQrCanvas" class="qr-canvas"></canvas>
+                  </div>
+                  <div class="qr-info-meta">
+                    <div class="qr-cert-id-tag">
+                      <span class="id-label" data-i18n="lbl_cert_id">CERTIFICATE ID:</span>
+                      <strong class="id-val font-mono" id="certUniqueId">KAW-CERT-84921</strong>
+                    </div>
+                    <div class="cert-hash-tag">
+                      <span class="hash-label" data-i18n="lbl_crypto_hash">CRYPTOGRAPHIC HASH:</span>
+                      <span class="hash-val font-mono" id="certCryptoHash">SHA256:7f8a...92b4</span>
+                    </div>
+                    <div class="cert-live-status-pill" id="certLiveStatusPill">
+                      <span class="status-indicator-dot" id="certLiveStatusDot"></span>
+                      <span id="certLiveStatusText" data-i18n="lbl_dgms_valid">DGMS Valid & Active</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Digital Signature Badge & Timestamp -->
+                <div class="cert-signature-footer">
+                  <div class="cert-signed-badge">
+                    <div class="signed-badge-icon-wrap">
+                      <i data-lucide="shield-check" class="signed-icon"></i>
+                    </div>
+                    <div class="signed-badge-text-wrap">
+                      <div class="cert-signed-title" data-i18n="cert_digitally_signed">Digitally Signed & Sealed</div>
+                      <div class="cert-signed-sub" data-i18n="lbl_dgms_standard">Directorate General of Mines Safety (DGMS) Standard</div>
+                    </div>
+                  </div>
+                  <div class="cert-timestamp-row">
+                    <i data-lucide="clock" class="w-3 h-3 text-slate-400 inline"></i>
+                    <span class="cert-timestamp font-mono" id="certIssueDateText">Issued: Sept 19, 2026 • 17:45 IST</span>
+                  </div>
+                </div>
+
+              </div> <!-- End of .cert-passport-card -->
+
+              <!-- Actions -->
+              <div class="cert-actions-stack">
+                <button type="button" class="btn-phone-primary" id="btnCertDone">
+                  <i data-lucide="check"></i>
+                  <span data-i18n="btn_return_modules">Return to Training Modules</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- =============================================================== -->
+          <!-- SCREEN 5: TRAINING RESULT FAILED / RETAKE REQUIRED (REQ 5)       -->
+          <!-- =============================================================== -->
+          <div class="phone-screen-pane result-failed-pane" id="screenTrainingResultFailed">
+            <div class="result-failed-screen-content">
+              
+              <!-- Top Header -->
+              <div class="cert-nav-bar">
+                <button type="button" class="btn-cert-back" id="btnFailedBackToModules">
+                  <i data-lucide="chevron-left"></i>
+                  <span data-i18n="btn_all_modules">All Modules</span>
+                </button>
+                <div class="failed-status-tag" id="failedStatusTag">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
+                  <span data-i18n="tag_retake_required">Retake Required</span>
+                </div>
+              </div>
+
+              <!-- Offline Notice for Retake -->
+              <div class="cert-offline-banner hidden" id="failedOfflineBanner">
+                <div class="cert-offline-banner-left">
+                  <i data-lucide="hard-drive" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+                  <div class="cert-offline-banner-text" data-i18n="offline_notice_text">
+                    Saved locally, pending sync to DGMS Cloud.
+                  </div>
+                </div>
+                <span class="offline-badge-pill" data-i18n="badge_offline_pending">Saved locally, pending sync</span>
+              </div>
+
+              <!-- Failure Result Card -->
+              <div class="result-failed-card" id="resultFailedCard">
+                
+                <!-- Card Header -->
+                <div class="failed-card-header">
+                  <div class="failed-icon-circle">
+                    <i data-lucide="shield-alert" class="w-8 h-8 text-amber-500"></i>
+                  </div>
+                  <h3 class="failed-title" data-i18n="failed_result_title">Competency Standard Not Met</h3>
+                  <p class="failed-subtitle" data-i18n="failed_result_sub">75% passing threshold required for DGMS certification passport.</p>
+                </div>
+
+                <!-- Score Breakdown Box -->
+                <div class="failed-score-box">
+                  <div class="failed-score-main">
+                    <span class="failed-score-number" id="failedScoreNumber">50%</span>
+                    <span class="failed-score-label" data-i18n="lbl_final_score">Final Score</span>
+                  </div>
+                  <div class="failed-score-details">
+                    <div class="failed-stat-row">
+                      <span class="failed-stat-label" data-i18n="lbl_correct_answers">Correct Responses:</span>
+                      <strong class="failed-stat-val font-mono" id="failedCorrectCountText">2 of 4 Tasks</strong>
+                    </div>
+                    <div class="failed-stat-row">
+                      <span class="failed-stat-label" data-i18n="lbl_pass_threshold">Pass Threshold:</span>
+                      <span class="failed-stat-val text-emerald-600 font-bold" data-i18n="failed_pass_threshold_note">75% (3/4 Tasks)</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Worker & Module Metadata -->
+                <div class="failed-meta-list">
+                  <div class="failed-meta-row">
+                    <span class="text-xs text-slate-500" data-i18n="th_worker_name">Worker Name:</span>
+                    <span class="text-xs font-bold text-slate-800" id="failedWorkerName">Ramesh Kumar Soren (EMP-0001)</span>
+                  </div>
+                  <div class="failed-meta-row">
+                    <span class="text-xs text-slate-500" data-i18n="th_module_completed">Module:</span>
+                    <span class="text-xs font-bold text-slate-800" id="failedModuleName">Fire & Explosion Response</span>
+                  </div>
+                  <div class="failed-meta-row">
+                    <span class="text-xs text-slate-500" data-i18n="lbl_audit_status">Audit Status:</span>
+                    <span class="status-badge-retake" data-i18n="badge_status_retake">Retake Required • Logged to Admin</span>
+                  </div>
+                </div>
+
+                <!-- Remediation Note -->
+                <div class="failed-remediation-box">
+                  <i data-lucide="book-open" class="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5"></i>
+                  <div class="text-xs text-amber-900" data-i18n="failed_remediation_note">
+                    Review critical safety hazard indicators, verify ventilation escape routes and emergency protocols, then retake the module.
+                  </div>
+                </div>
+
+              </div> <!-- End of .result-failed-card -->
+
+              <!-- Actions Stack -->
+              <div class="cert-actions-stack">
+                <button type="button" class="btn-phone-primary" id="btnRetakeModule">
+                  <i data-lucide="rotate-ccw"></i>
+                  <span data-i18n="btn_retake_module">Retake Training Module</span>
+                </button>
+                <button type="button" class="btn-phone-subtle" id="btnFailedReturnModules">
+                  <i data-lucide="layout-grid"></i>
+                  <span data-i18n="btn_return_modules">Return to Training Modules</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div> <!-- End of .phone-screen-viewport -->
+
+        <!-- Bottom Android Navigation Bar Pill -->
+        <div class="phone-bottom-nav">
+          <div class="android-gesture-pill" title="Home Gesture"></div>
+        </div>
+
+      </div> <!-- End of .mobile-phone-frame -->
+
+    </div> <!-- End of .phone-stage-container -->
+
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- ADMIN INDUSTRY REGISTRATION MODAL (REQ 9: SCROLLABLE, REQ 11: DEMO FILL)  -->
+  <!-- ========================================================================= -->
+  <div class="modal-backdrop hidden" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card" id="registrationModalCard">
+      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-shield">
+            <i data-lucide="shield-plus"></i>
+          </div>
+          <div>
+            <div class="modal-kicker" data-i18n="modal_reg_kicker">Admin Portal • Industrial Onboarding</div>
+            <h2 class="modal-title" id="modalTitle" data-i18n="modal_reg_title">Facility Registration Flow</h2>
+          </div>
+        </div>
+        <div class="modal-header-right">
+          <div class="next-id-indicator" title="Assigned on successful submission">
+            <span class="next-id-label" data-i18n="lbl_next_id">Next ID:</span>
+            <span class="next-id-val" id="nextIdPreview">KAW-00001</span>
+          </div>
+          <button type="button" class="btn-close" id="modalCloseBtn" aria-label="Close Registration Form">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body / Form -->
+      <form id="industryRegistrationForm" novalidate>
+        <div class="modal-body-scrollable">
+          
+          <!-- Form Intro Banner with Demo Auto-Fill (Req 11) -->
+          <div class="form-tip-banner flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="tip-icon"></i>
+              <div class="tip-content" data-i18n="reg_tip_content">
+                <strong>KawachAR</strong> connects registered facilities directly to workers' smartphone cameras for zero-hardware hazard overlays.
+              </div>
+            </div>
+            <button type="button" class="btn-demo-fill-pill" id="btnDemoFillIndustry" title="Auto-populate sample industrial facility details">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span data-i18n="btn_fill_demo">Fill Demo Details</span>
+            </button>
+          </div>
+
+          <!-- Global Form Error Alert -->
+          <div class="form-alert-error hidden" id="formGlobalError">
+            <i data-lucide="alert-triangle" class="error-alert-icon"></i>
+            <div class="error-alert-content">
+              <strong data-i18n="err_correct_fields">Please correct the highlighted fields:</strong>
+              <span id="formGlobalErrorMessage" data-i18n="err_correct_fields_sub">Ensure all required fields and at least one active department are selected.</span>
+            </div>
+          </div>
+
+          <!-- SECTION 1: ORGANIZATION & LEGAL (POINT 3 FIX: SINGLE REG FIELD ONLY) -->
+          <div class="form-section">
+            <div class="section-legend">
+              <span class="legend-num">1</span>
+              <div>
+                <h3 class="legend-title" data-i18n="sec1_title">Organization & Facility Profile</h3>
+                <p class="legend-desc" data-i18n="sec1_desc">Enter legal entity, industry classification, and location details</p>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <!-- Organization Name -->
+              <div class="form-group col-span-2">
+                <label for="orgName" class="form-label">
+                  <span data-i18n="lbl_org_name">Organization / Factory Name</span> <span class="required-star">*</span>
+                </label>
+                <div class="input-wrap">
+                  <i data-lucide="building-2" class="input-icon"></i>
+                  <input 
+                    type="text" 
+                    id="orgName" 
+                    name="orgName" 
+                    class="form-input" 
+                    placeholder="e.g. Bharat Mining & Minerals Corp. Unit #4" 
+                    data-i18n-placeholder="ph_org_name"
+                    required 
+                    autocomplete="organization"
+                  >
+                </div>
+                <div class="field-error-msg" id="orgNameError" data-i18n="err_org_name">Organization / Factory Name is required.</div>
+              </div>
+
+              <!-- Industry Type -->
+              <div class="form-group">
+                <label for="industryType" class="form-label">
+                  <span data-i18n="lbl_industry_type">Industry Type</span> <span class="required-star">*</span>
+                </label>
+                <div class="select-wrap">
+                  <i data-lucide="factory" class="input-icon"></i>
+                  <select id="industryType" name="industryType" class="form-select" required>
+                    <option value="" disabled selected data-i18n="opt_select_industry">Select Industry Classification...</option>
+                    <option value="Mining" data-i18n="ind_mining">Mining (Open-cast / Underground)</option>
+                    <option value="Steel" data-i18n="ind_steel">Steel (Smelting / Rolling / Alloys)</option>
+                    <option value="Manufacturing" data-i18n="ind_mfg">Manufacturing (Heavy / Equipment)</option>
+                    <option value="Mica" data-i18n="ind_mica">Mica (Mining / Splitting / Processing)</option>
+                  </select>
+                  <i data-lucide="chevron-down" class="select-arrow-icon"></i>
+                </div>
+                <div class="field-error-msg" id="industryTypeError" data-i18n="err_industry_type">Please select an Industry Type.</div>
+              </div>
+
+              <!-- Location -->
+              <div class="form-group">
+                <label for="orgLocation" class="form-label">
+                  <span data-i18n="lbl_facility_location">Facility Location / Site Address</span> <span class="required-star">*</span>
+                </label>
+                <div class="input-wrap">
+                  <i data-lucide="map-pin" class="input-icon"></i>
+                  <input 
+                    type="text" 
+                    id="orgLocation" 
+                    name="orgLocation" 
+                    class="form-input" 
+                    placeholder="e.g. Dhanbad Mining Zone, Jharkhand" 
+                    data-i18n-placeholder="ph_location"
+                    required 
+                    autocomplete="address-level2"
+                  >
+                </div>
+                <div class="field-error-msg" id="orgLocationError" data-i18n="err_location">Facility Location is required.</div>
+              </div>
+
+              <!-- POINT 3: SINGLE REGISTRATION TYPE SELECTOR -->
+              <div class="form-group col-span-2">
+                <label class="form-label">
+                  <span data-i18n="lbl_reg_type">Registration Document Type</span> <span class="required-star">*</span>
+                </label>
+                
+                <div class="reg-type-choice-grid" id="regTypeChoiceGrid">
+                  <label class="reg-type-choice active" id="labelRegTypeLicence">
+                    <input type="radio" name="registrationDocType" value="licence" id="radioTypeLicence" checked>
+                    <div class="reg-type-choice-body">
+                      <div class="reg-type-icon-box"><i data-lucide="file-check"></i></div>
+                      <div>
+                        <div class="reg-type-main-title" data-i18n="reg_choice_licence_title">Registration / Licence Number</div>
+                        <div class="reg-type-sub-title" data-i18n="reg_choice_licence_sub">Factory Licence, Mining Lease or DGMS Number</div>
+                      </div>
+                    </div>
+                  </label>
+
+                  <label class="reg-type-choice" id="labelRegTypeUdyam">
+                    <input type="radio" name="registrationDocType" value="udyam" id="radioTypeUdyam">
+                    <div class="reg-type-choice-body">
+                      <div class="reg-type-icon-box"><i data-lucide="award"></i></div>
+                      <div>
+                        <div class="reg-type-main-title" data-i18n="reg_choice_udyam_title">Udyam Registration Number</div>
+                        <div class="reg-type-sub-title" data-i18n="reg_choice_udyam_sub">Official MSME Enterprise Registration</div>
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- SINGLE DYNAMIC REGISTRATION INPUT FIELD (ONLY ONE FIELD ON FORM) -->
+              <div class="form-group col-span-2" id="singleRegFieldContainer">
+                <label for="regDocValueInput" class="form-label" id="singleRegDocLabel">
+                  <span id="singleRegDocLabelText" data-i18n="lbl_reg_doc_licence">Official Registration / Licence Number</span> <span class="required-star">*</span>
+                </label>
+                <div class="input-wrap">
+                  <i data-lucide="file-check" class="input-icon" id="singleRegDocIcon"></i>
+                  <input 
+                    type="text" 
+                    id="regDocValueInput" 
+                    name="regDocValueInput" 
+                    class="form-input font-mono" 
+                    placeholder="e.g. DGMS/MIN/2024/8892 or any 10-digit number" 
+                    data-i18n-placeholder="ph_reg_licence"
+                    required
+                  >
+                </div>
+                <span class="field-hint" id="singleRegDocHint" data-i18n="hint_reg_licence">Accepts valid alphanumeric licence format or any 10-digit number for demo</span>
+                <div class="field-error-msg" id="regDocValueError" data-i18n="err_reg_doc_value">Please enter a valid registration value (or any 10-digit number).</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SECTION 2: ACTIVE DEPARTMENTS -->
+          <div class="form-section">
+            <div class="section-legend">
+              <span class="legend-num">2</span>
+              <div>
+                <div class="legend-header-flex">
+                  <h3 class="legend-title"><span data-i18n="sec2_title">Active Operational Departments (Site Scope)</span> <span class="required-star">*</span></h3>
+                  <div class="dept-counter-badge" id="deptCounterBadge">
+                    <span id="deptCountSelected">0</span> <span data-i18n="dept_of_selected">of 15 selected</span>
+                  </div>
+                </div>
+                <p class="legend-desc" data-i18n="sec2_desc">Select all operational departments active at this specific facility to initialize smartphone AR safety models.</p>
+              </div>
+            </div>
+
+            <!-- Master Departments Multi-Select Grid (15 Items) -->
+            <div class="departments-grid" id="departmentsGrid">
+              <!-- Item 1 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Mining / Extraction Operations" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="pickaxe"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_mining_name">Mining / Extraction Operations</span>
+                    <span class="dept-sub" data-i18n="dept_mining_sub">Pit, quarry & ore extraction</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 2 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Production / Manufacturing" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="factory"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_prod_name">Production / Manufacturing</span>
+                    <span class="dept-sub" data-i18n="dept_prod_sub">Assembly & fabrication lines</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 3 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Processing / Material Handling" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="layers"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_proc_name">Processing / Material Handling</span>
+                    <span class="dept-sub" data-i18n="dept_proc_sub">Crushing, sorting & conveyor bays</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 4 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Mechanical" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="settings-2"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_mech_name">Mechanical</span>
+                    <span class="dept-sub" data-i18n="dept_mech_sub">Heavy plant machinery & hydraulics</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 5 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Electrical" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="zap"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_elec_name">Electrical</span>
+                    <span class="dept-sub" data-i18n="dept_elec_sub">Substations, HT gear & power lines</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 6 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Maintenance" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="wrench"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_maint_name">Maintenance</span>
+                    <span class="dept-sub" data-i18n="dept_maint_sub">Preventive & corrective overhaul</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 7 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Plant / Equipment Operations" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="gauge"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_plant_name">Plant / Equipment Operations</span>
+                    <span class="dept-sub" data-i18n="dept_plant_sub">Boilers, furnaces & rotary units</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 8 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Safety / HSE (Health, Safety & Environment)" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="shield-alert"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_safety_name">Safety / HSE</span>
+                    <span class="dept-sub" data-i18n="dept_safety_sub">DGMS, compliance & hazard command</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 9 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Quality Control / Quality Assurance" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="microscope"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_qa_name">Quality Control / QA</span>
+                    <span class="dept-sub" data-i18n="dept_qa_sub">Lab assay, testing & QA release</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 10 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Utilities / Power & Energy" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="activity"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_util_name">Utilities / Power & Energy</span>
+                    <span class="dept-sub" data-i18n="dept_util_sub">Water treatment, gas & power grid</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 11 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Warehouse / Stores" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="boxes"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_store_name">Warehouse / Stores</span>
+                    <span class="dept-sub" data-i18n="dept_store_sub">Raw inventory & spares storage</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 12 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Logistics / Transportation" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="truck"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_log_name">Logistics / Transportation</span>
+                    <span class="dept-sub" data-i18n="dept_log_sub">Fleet, haulage & dispatch logistics</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 13 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Engineering / Projects" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="hard-hat"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_eng_name">Engineering / Projects</span>
+                    <span class="dept-sub" data-i18n="dept_eng_sub">Civil, site design & expansion</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 14 -->
+              <label class="dept-card">
+                <input type="checkbox" name="activeDepartments" value="Administration / HR" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="users"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_hr_name">Administration / HR</span>
+                    <span class="dept-sub" data-i18n="dept_hr_sub">Workforce ops & plant management</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+
+              <!-- Item 15 -->
+              <label class="dept-card" id="otherDeptCard">
+                <input type="checkbox" name="activeDepartments" value="Other" id="otherDeptCheckbox" class="dept-checkbox">
+                <div class="dept-card-inner">
+                  <div class="dept-icon-circle"><i data-lucide="plus-circle"></i></div>
+                  <div class="dept-text-wrap">
+                    <span class="dept-name" data-i18n="dept_other_name">Other</span>
+                    <span class="dept-sub" data-i18n="dept_other_sub">Specify custom department</span>
+                  </div>
+                  <div class="dept-check-indicator"><i data-lucide="check"></i></div>
+                </div>
+              </label>
+            </div>
+
+            <!-- Custom Department Input -->
+            <div id="otherDeptContainer" class="other-dept-container hidden">
+              <label for="otherDeptInput" class="form-label">
+                <span data-i18n="lbl_custom_dept">Custom Department Name</span> <span class="required-star">*</span>
+              </label>
+              <div class="input-wrap">
+                <i data-lucide="plus" class="input-icon"></i>
+                <input 
+                  type="text" 
+                  id="otherDeptInput" 
+                  name="otherDeptInput" 
+                  class="form-input" 
+                  placeholder="e.g. Tailings Dam Operations..."
+                >
+              </div>
+              <div class="field-error-msg" id="otherDeptError">Please specify the custom department name.</div>
+            </div>
+
+            <div class="field-error-msg" id="departmentsError" data-i18n="err_select_dept">Please select at least one Active Department.</div>
+          </div>
+
+          <!-- SECTION 3: DESIGNATED ADMIN / SAFETY OFFICER -->
+          <div class="form-section">
+            <div class="section-legend">
+              <span class="legend-num">3</span>
+              <div>
+                <h3 class="legend-title" data-i18n="sec3_title">Designated Safety Officer / Plant Admin</h3>
+                <p class="legend-desc" data-i18n="sec3_desc">Point of contact for emergency AR telemetry alerts and DGMS audit reports</p>
+              </div>
+            </div>
+
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label for="adminName" class="form-label">
+                  <span data-i18n="lbl_officer_name">Officer / Admin Name</span> <span class="required-star">*</span>
+                </label>
+                <div class="input-wrap">
+                  <i data-lucide="user" class="input-icon"></i>
+                  <input 
+                    type="text" 
+                    id="adminName" 
+                    name="adminName" 
+                    class="form-input" 
+                    placeholder="e.g. Er. Rajeshwar Verma" 
+                    required 
+                    autocomplete="name"
+                  >
+                </div>
+                <div class="field-error-msg" id="adminNameError" data-i18n="err_officer_name">Admin / Safety Officer Name is required.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="adminPhone" class="form-label">
+                  <span data-i18n="lbl_contact_number">Contact Number</span> <span class="required-star">*</span>
+                </label>
+                <div class="input-wrap">
+                  <i data-lucide="phone" class="input-icon"></i>
+                  <input 
+                    type="tel" 
+                    id="adminPhone" 
+                    name="adminPhone" 
+                    class="form-input" 
+                    placeholder="e.g. +91 98765 43210" 
+                    required 
+                    autocomplete="tel"
+                  >
+                </div>
+                <div class="field-error-msg" id="adminPhoneError" data-i18n="err_contact_number">Valid contact number is required.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="adminEmail" class="form-label">
+                  <span data-i18n="lbl_official_email">Official Email Address</span> <span class="required-star">*</span>
+                </label>
+                <div class="input-wrap">
+                  <i data-lucide="mail" class="input-icon"></i>
+                  <input 
+                    type="email" 
+                    id="adminEmail" 
+                    name="adminEmail" 
+                    class="form-input" 
+                    placeholder="e.g. safety.officer@bharatmining.com" 
+                    required 
+                    autocomplete="email"
+                  >
+                </div>
+                <div class="field-error-msg" id="adminEmailError" data-i18n="err_official_email">Valid official email is required.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Modal Footer Actions (Sticky bottom) -->
+        <div class="modal-footer">
+          <div class="footer-note">
+            <i data-lucide="lock" class="footer-lock-icon"></i>
+            <span data-i18n="modal_footer_note">All submissions generate an authorized cryptographic KAW identifier</span>
+          </div>
+          <div class="footer-btn-group">
+            <button type="button" class="btn btn-subtle" id="modalCancelBtn" data-i18n="btn_cancel">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submitFormBtn">
+              <i data-lucide="shield-check"></i>
+              <span data-i18n="btn_register_gen_id">Register & Generate KAW-ID</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- ADMIN ADD WORKER MODAL (REQ 9: SCROLLABLE, REQ 10: CLOSE BTN, REQ 11: DEMO) -->
+  <!-- ========================================================================= -->
+  <div class="modal-backdrop hidden" id="addWorkerModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="addWorkerModalTitle">
+    <div class="modal-card modal-card-md" id="addWorkerModalCard">
+      
+      <!-- Header with working (X) close button (Req 10) -->
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-shield" style="background: linear-gradient(135deg, var(--amber-600) 0%, var(--amber-700) 100%);">
+            <i data-lucide="user-plus"></i>
+          </div>
+          <div>
+            <div class="modal-kicker" data-i18n="modal_add_worker_kicker">Workforce Onboarding • Admin Control</div>
+            <h2 class="modal-title" id="addWorkerModalTitle" data-i18n="modal_add_worker_title">Enroll Frontline Worker</h2>
+          </div>
+        </div>
+        <div class="modal-header-right">
+          <div class="next-id-indicator" title="Sequential worker credential assigned on enrollment">
+            <span class="next-id-label" data-i18n="lbl_next_worker_id">Next Worker ID:</span>
+            <span class="next-id-val font-mono" id="nextWorkerIdPreview">EMP-0001</span>
+          </div>
+          <button type="button" class="btn-close" id="closeAddWorkerModalBtn" aria-label="Close Worker Enrollment" title="Close form">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Add Worker Form (Req 9: Fully Scrollable) -->
+      <form id="adminAddWorkerForm" novalidate>
+        <div class="modal-body-scrollable">
+          
+          <!-- Tip Banner with Demo Auto-Fill (Req 11) -->
+          <div class="form-tip-banner flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <i data-lucide="info" class="tip-icon"></i>
+              <div class="tip-content" data-i18n="add_worker_tip">
+                The generated <strong>Worker ID (EMP-XXXX)</strong> serves as the worker's permanent login username.
+              </div>
+            </div>
+            <button type="button" class="btn-demo-fill-pill" id="btnDemoFillWorker" title="Auto-populate sample worker details">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              <span data-i18n="btn_fill_demo">Fill Demo Details</span>
+            </button>
+          </div>
+
+          <!-- Error Alert -->
+          <div class="form-alert-error hidden" id="adminAddWorkerGlobalError">
+            <i data-lucide="alert-triangle" class="error-alert-icon"></i>
+            <div class="error-alert-content">
+              <strong data-i18n="err_correct_fields">Please correct the highlighted fields:</strong>
+              <span id="adminAddWorkerGlobalErrorMessage">Please complete all required fields.</span>
+            </div>
+          </div>
+
+          <!-- Facility Association -->
+          <div class="form-group">
+            <label for="adminWorkerOrgSelect" class="form-label">
+              <span data-i18n="lbl_assigned_facility">Assigned Industrial Facility</span> <span class="required-star">*</span>
+            </label>
+            <div class="select-wrap">
+              <i data-lucide="building" class="input-icon"></i>
+              <select id="adminWorkerOrgSelect" name="adminWorkerOrgSelect" class="form-select" required>
+                <option value="" disabled selected data-i18n="opt_select_facility_scope">Select facility to load active departments...</option>
+              </select>
+              <i data-lucide="chevron-down" class="select-arrow-icon"></i>
+            </div>
+            <div class="field-error-msg" id="adminWorkerOrgSelectError" data-i18n="err_select_facility">Please select the assigned industrial facility.</div>
+          </div>
+
+          <div class="form-grid-2">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label for="adminWorkerName" class="form-label">
+                <span data-i18n="lbl_full_name">Worker Full Name</span> <span class="required-star">*</span>
+              </label>
+              <div class="input-wrap">
+                <i data-lucide="user" class="input-icon"></i>
+                <input 
+                  type="text" 
+                  id="adminWorkerName" 
+                  name="adminWorkerName" 
+                  class="form-input" 
+                  placeholder="e.g. Ramesh Kumar Soren" 
+                  data-i18n-placeholder="ph_worker_name"
+                  required
+                >
+              </div>
+              <div class="field-error-msg" id="adminWorkerNameError" data-i18n="err_worker_name">Worker Full Name is required.</div>
+            </div>
+
+            <!-- Mobile Number -->
+            <div class="form-group">
+              <label for="adminWorkerMobile" class="form-label">
+                <span data-i18n="lbl_mobile_number">Mobile Number</span> <span class="required-star">*</span>
+              </label>
+              <div class="input-wrap">
+                <span class="input-prefix">+91</span>
+                <input 
+                  type="tel" 
+                  id="adminWorkerMobile" 
+                  name="adminWorkerMobile" 
+                  class="form-input input-prefixed font-mono" 
+                  placeholder="9876543210" 
+                  maxlength="10"
+                  inputmode="numeric"
+                  required
+                >
+              </div>
+              <div class="field-error-msg" id="adminWorkerMobileError" data-i18n="err_mobile_number">Valid 10-digit mobile number is required.</div>
+            </div>
+          </div>
+
+          <!-- Address & Location -->
+          <div class="form-group">
+            <label for="adminWorkerAddress" class="form-label">
+              <span data-i18n="lbl_residential_address">Residential Address / Colony Location</span> <span class="required-star">*</span>
+            </label>
+            <div class="input-wrap">
+              <i data-lucide="home" class="input-icon"></i>
+              <textarea 
+                id="adminWorkerAddress" 
+                name="adminWorkerAddress" 
+                class="form-textarea" 
+                rows="2" 
+                placeholder="e.g. Quarter B-42, Mining Officers Colony, Dhanbad, Jharkhand" 
+                data-i18n-placeholder="ph_worker_address"
+                required
+              ></textarea>
+            </div>
+            <div class="field-error-msg" id="adminWorkerAddressError" data-i18n="err_address">Address / Location is required.</div>
+          </div>
+
+          <!-- Dummy Aadhaar Number -->
+          <div class="form-group">
+            <label for="adminWorkerAadhaar" class="form-label">
+              <span data-i18n="lbl_aadhaar_demo">Aadhaar Number</span> <span class="optional-pill" data-i18n="pill_demo_field">Masked Demo Field</span>
+            </label>
+            <div class="input-wrap">
+              <i data-lucide="fingerprint" class="input-icon"></i>
+              <input 
+                type="text" 
+                id="adminWorkerAadhaar" 
+                name="adminWorkerAadhaar" 
+                class="form-input font-mono" 
+                placeholder="XXXX-XXXX-1234" 
+                maxlength="14"
+              >
+            </div>
+            <span class="field-hint" data-i18n="hint_aadhaar_demo">Placeholder identification format (demo only, no real verification)</span>
+          </div>
+
+          <!-- Assigned Departments Multi-select (From Selected Org's Active Scope) -->
+          <div class="form-group">
+            <div class="flex justify-between items-center mb-1">
+              <label class="form-label mb-0">
+                <span data-i18n="lbl_assigned_depts">Assigned Operational Department(s)</span> <span class="required-star">*</span>
+              </label>
+              <span class="dept-select-count" id="adminWorkerDeptCount">0 selected</span>
+            </div>
+            <p class="field-hint mb-2" id="adminWorkerDeptHint" data-i18n="hint_select_facility_first">
+              Select a facility above to load that organization's active operational departments.
+            </p>
+
+            <div class="admin-worker-depts-container" id="adminWorkerDeptsList">
+              <!-- Populated dynamically based on selected organization -->
+            </div>
+            <div class="field-error-msg" id="adminWorkerDeptsError" data-i18n="err_select_worker_dept">Please select at least one assigned department.</div>
+          </div>
+
+        </div>
+
+        <!-- Modal Footer (Sticky bottom) -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-subtle" id="cancelAddWorkerBtn" data-i18n="btn_cancel">Cancel</button>
+          <button type="submit" class="btn btn-amber" id="submitAddWorkerBtn">
+            <i data-lucide="user-check"></i>
+            <span data-i18n="btn_enroll_generate_emp">Enroll Worker & Generate EMP-ID</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- WORKER ENROLLMENT SUCCESS SLIP MODAL (ADMIN SHARE CARD)                   -->
+  <!-- ========================================================================= -->
+  <div class="modal-backdrop hidden" id="workerSuccessBackdrop" role="dialog" aria-modal="true" aria-labelledby="workerSuccessTitle">
+    <div class="modal-card modal-card-sm" id="workerSuccessModalCard">
+      <div class="success-header">
+        <div class="success-icon-wrap" style="background: rgba(217, 119, 6, 0.12); color: var(--amber-600); border-color: rgba(217, 119, 6, 0.3);">
+          <i data-lucide="user-check" class="success-icon-check"></i>
+        </div>
+        <h2 class="success-title" id="workerSuccessTitle" data-i18n="worker_enrolled_title">Worker Successfully Enrolled!</h2>
+        <p class="success-subtitle" data-i18n="worker_enrolled_subtitle">Share these credentials with the worker for their first mobile app login.</p>
+      </div>
+
+      <div class="success-body">
+        <div class="generated-id-card">
+          <div class="id-card-label" data-i18n="lbl_worker_username">Worker Login Username</div>
+          <div class="id-card-row">
+            <span class="id-number font-mono" id="modalGeneratedWorkerId">EMP-0001</span>
+            <button type="button" class="btn-copy-id" id="copyWorkerIdBtn" title="Copy Worker ID">
+              <i data-lucide="copy" id="copyWorkerIcon"></i>
+              <span id="copyWorkerText" data-i18n="btn_copy">Copy</span>
+            </button>
+          </div>
+          <div class="id-card-note">
+            <i data-lucide="smartphone" class="w-3.5 h-3.5 inline text-amber-600"></i> <span data-i18n="note_worker_first_login">The worker will set their secret password upon first login in the mobile app.</span>
+          </div>
+        </div>
+
+        <div class="summary-box">
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_worker_name">Worker Name</span>
+            <span class="summary-val font-semibold" id="modalWorkerFullName">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_facility">Facility</span>
+            <span class="summary-val" id="modalWorkerOrgName">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_mobile">Mobile</span>
+            <span class="summary-val font-mono" id="modalWorkerMobile">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_assigned_depts">Assigned Departments</span>
+            <span class="summary-val" id="modalWorkerDepts">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-footer">
+        <button type="button" class="btn btn-primary w-full" id="workerSuccessDoneBtn">
+          <i data-lucide="check"></i>
+          <span data-i18n="btn_done">Done</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- FACILITY REGISTRATION SUCCESS MODAL (ADMIN SLIP)                          -->
+  <!-- ========================================================================= -->
+  <div class="modal-backdrop hidden" id="successBackdrop" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+    <div class="modal-card modal-card-sm" id="successModalCard">
+      <div class="success-header">
+        <div class="success-icon-wrap">
+          <i data-lucide="check" class="success-icon-check"></i>
+        </div>
+        <h2 class="success-title" id="successTitle" data-i18n="facility_registered_title">Facility Registered!</h2>
+        <p class="success-subtitle" data-i18n="facility_registered_subtitle">Your industrial facility is enrolled in the KawachAR Safety Network.</p>
+      </div>
+
+      <div class="success-body">
+        <div class="generated-id-card">
+          <div class="id-card-label" data-i18n="lbl_org_id">Auto-Generated Organization ID</div>
+          <div class="id-card-row">
+            <span class="id-number" id="successOrgId">KAW-00001</span>
+            <button type="button" class="btn-copy-id" id="copyIdBtn" title="Copy Organization ID">
+              <i data-lucide="copy" id="copyIcon"></i>
+              <span id="copyText" data-i18n="btn_copy">Copy</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="summary-box">
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_facility">Facility Name</span>
+            <span class="summary-val font-semibold" id="summaryOrgName">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_industry">Industry Type</span>
+            <span class="summary-val" id="summaryIndustryType">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_location">Location</span>
+            <span class="summary-val" id="summaryLocation">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" id="summaryDocTypeLabel" data-i18n="summary_document">Registration Document</span>
+            <span class="summary-val font-mono" id="summaryDocValue">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_active_depts">Active Departments</span>
+            <span class="summary-val" id="summaryDeptsCount">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label" data-i18n="summary_admin">Safety Officer / Admin</span>
+            <span class="summary-val" id="summaryAdminName">—</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="success-footer">
+        <button type="button" class="btn btn-primary w-full" id="successDoneBtn">
+          <i data-lucide="check"></i>
+          <span data-i18n="btn_done">Done</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- ADMIN WORKER DIGITAL CERTIFICATE & QR VERIFICATION MODAL                  -->
+  <!-- ========================================================================= -->
+  <div class="modal-backdrop hidden" id="adminCertModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="adminCertModalTitle">
+    <div class="modal-card modal-card-cert" id="adminCertModalCard">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-header-left">
+          <div class="modal-icon-shield" style="background: linear-gradient(135deg, #065f46 0%, #047857 100%); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3);">
+            <i data-lucide="award" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="modal-kicker" style="color: #059669;" data-i18n="admin_cert_modal_kicker">DGMS COMPLIANCE VERIFIED</div>
+            <h3 class="modal-title" id="adminCertModalTitle" data-i18n="admin_cert_modal_title">Worker Safety Certificate</h3>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="adminCertModalCloseBtn" aria-label="Close modal">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body with Digital Certificate Passport Card -->
+      <div class="modal-body-scrollable cert-modal-scrollable">
+        <div class="cert-passport-card cert-passport-card-admin" id="adminCertPassportCard">
+          
+          <!-- Card Header with DGMS Seal -->
+          <div class="cert-card-header">
+            <div class="cert-logo-group">
+              <div class="cert-emblem">
+                <i data-lucide="shield-check" class="w-5 h-5 text-amber-500"></i>
+              </div>
+              <div>
+                <div class="cert-issuer-title">KAWACH<span class="text-amber-500">AR</span> • DGMS NETWORK</div>
+                <div class="cert-issuer-sub" data-i18n="cert_doc_title">Digital Safety Competency Passport</div>
+              </div>
+            </div>
+            <div class="cert-ribbon-badge" title="DGMS Certified Standard">
+              <i data-lucide="award"></i>
+            </div>
+          </div>
+
+          <!-- Worker Credentials Row -->
+          <div class="cert-worker-hero">
+            <div class="cert-worker-avatar">
+              <i data-lucide="hard-hat"></i>
+            </div>
+            <div class="cert-worker-meta">
+              <div class="cert-worker-name" id="adminCertWorkerName">Ramesh Kumar Soren</div>
+              <div class="cert-worker-ids">
+                <span class="cert-emp-id font-mono" id="adminCertWorkerId">EMP-0001</span>
+                <span class="cert-dot">•</span>
+                <span class="cert-org-name" id="adminCertOrgName">Bharat Mining & Minerals Corp. Unit #4</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module Completion & Score -->
+          <div class="cert-achievement-box">
+            <div class="cert-module-badge-row">
+              <div class="cert-module-label" data-i18n="lbl_certified_module">Certified Module:</div>
+              <div class="cert-module-name" id="adminCertModuleName">Fire & Explosion Response</div>
+            </div>
+
+            <div class="cert-score-display-row">
+              <div class="cert-score-badge" id="adminCertScoreBadge">
+                <span class="score-number font-mono" id="adminCertScoreNumber">100%</span>
+                <span class="score-label" data-i18n="lbl_final_score">Final Score</span>
+              </div>
+              <div class="cert-result-pill" id="adminCertResultPill">
+                <i data-lucide="check-check" class="w-4 h-4"></i>
+                <span data-i18n="cert_passed_status">Passed • Compliant</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Generated QR Code Section -->
+          <div class="cert-qr-section">
+            <div class="qr-canvas-box">
+              <canvas id="adminCertQrCanvas" class="qr-canvas"></canvas>
+            </div>
+            <div class="qr-info-meta">
+              <div class="qr-cert-id-tag">
+                <span class="id-label" data-i18n="lbl_cert_id">CERTIFICATE ID:</span>
+                <strong class="id-val font-mono" id="adminCertUniqueId">KAW-CERT-84921</strong>
+              </div>
+              <div class="cert-hash-tag">
+                <span class="hash-label" data-i18n="lbl_crypto_hash">CRYPTOGRAPHIC HASH:</span>
+                <span class="hash-val font-mono" id="adminCertCryptoHash">SHA256:7f8a...92b4</span>
+              </div>
+              <div class="cert-live-status-pill">
+                <span class="status-indicator-dot"></span>
+                <span data-i18n="lbl_dgms_valid">DGMS Valid & Active</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Digital Signature Badge & Timestamp -->
+          <div class="cert-signature-footer">
+            <div class="cert-signed-badge">
+              <div class="signed-badge-icon-wrap">
+                <i data-lucide="shield-check" class="signed-icon"></i>
+              </div>
+              <div class="signed-badge-text-wrap">
+                <div class="cert-signed-title" data-i18n="cert_digitally_signed">Digitally Signed & Sealed</div>
+                <div class="cert-signed-sub" data-i18n="lbl_dgms_standard">Directorate General of Mines Safety (DGMS) Standard</div>
+              </div>
+            </div>
+            <div class="cert-timestamp-row">
+              <i data-lucide="clock" class="w-3 h-3 text-slate-400 inline"></i>
+              <span class="cert-timestamp font-mono" id="adminCertIssueDateText">Issued: Sept 19, 2026 • 17:45 IST</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer" style="display: flex; gap: 0.75rem; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-subtle" id="adminCertVerifyAuditBtn">
+          <i data-lucide="shield-check"></i> <span data-i18n="btn_view_in_audit">Verify in Audit Engine</span>
+        </button>
+        <button type="button" class="btn btn-primary" id="adminCertDoneBtn">
+          <i data-lucide="check"></i> <span data-i18n="btn_done">Done</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
